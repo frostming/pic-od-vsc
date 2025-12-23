@@ -15,6 +15,7 @@ function getConfig() {
   const config = vscode.workspace.getConfiguration('pic-od')
   return {
     binaryPath: config.get<string>('binaryPath', 'pic-od'),
+    profile: config.get<string>('profile', ''),
     // eslint-disable-next-line no-template-curly-in-string
     urlTemplate: config.get<string>('urlTemplate', '![${fileName}](${url})'),
   }
@@ -27,10 +28,16 @@ function formatUrl(template: string, result: UploadResult): string {
 }
 
 async function uploadImages(imagePaths: string[]): Promise<UploadResult[]> {
-  const { binaryPath } = getConfig()
+  const { binaryPath, profile } = getConfig()
+
+  const args = ['upload']
+  if (profile) {
+    args.push('--profile', profile)
+  }
+  args.push(...imagePaths)
 
   return new Promise((resolve, reject) => {
-    const proc = spawn(binaryPath, ['upload', ...imagePaths])
+    const proc = spawn(binaryPath, args)
     let stdout = ''
     let stderr = ''
 

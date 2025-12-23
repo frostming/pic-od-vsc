@@ -10,6 +10,7 @@
 | Key                  | Description                                                                                | Type     | Default                    |
 | -------------------- | ------------------------------------------------------------------------------------------ | -------- | -------------------------- |
 | `pic-od.binaryPath`  | Path to the pic-od binary                                                                  | `string` | `"pic-od"`                 |
+| `pic-od.profile`     | Profile name to use for upload                                                             | `string` | `""`                       |
 | `pic-od.urlTemplate` | Template for inserting the uploaded image URL. Available placeholders: ${fileName}, ${url} | `string` | `"![${fileName}](${url})"` |
 
 <!-- configs -->
