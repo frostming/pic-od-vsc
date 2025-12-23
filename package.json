@@ -1,0 +1,112 @@
+{
+  "publisher": "frostming",
+  "name": "pic-od-vsc",
+  "displayName": "Pic OpenDAL",
+  "version": "0.0.1",
+  "private": true,
+  "packageManager": "pnpm@10.4.1",
+  "description": "Picture upload tool powered by Apache OpenDAL™",
+  "author": "Frost Ming <me@frostming.com>",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/frostming",
+  "homepage": "https://github.com/frostming/pic-od-vsc#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frostming/pic-od-vsc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/frostming/pic-od-vsc/issues"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/frostming"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/index.js",
+  "icon": "res/icon.png",
+  "files": [
+    "LICENSE.md",
+    "dist/*",
+    "res/*"
+  ],
+  "engines": {
+    "vscode": "^1.97.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "pic-od.uploadFromClipboard",
+        "title": "Upload Image from Clipboard",
+        "category": "Pic OpenDAL"
+      },
+      {
+        "command": "pic-od.uploadFromExplorer",
+        "title": "Upload Image",
+        "category": "Pic OpenDAL"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "pic-od.uploadFromClipboard",
+        "key": "ctrl+alt+u",
+        "mac": "cmd+alt+u"
+      },
+      {
+        "command": "pic-od.uploadFromExplorer",
+        "key": "ctrl+alt+e",
+        "mac": "cmd+alt+e"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Pic OpenDAL",
+      "properties": {
+        "pic-od.binaryPath": {
+          "type": "string",
+          "default": "pic-od",
+          "description": "Path to the pic-od binary"
+        },
+        "pic-od.urlTemplate": {
+          "type": "string",
+          "default": "![${fileName}](${url})",
+          "description": "Template for inserting the uploaded image URL. Available placeholders: ${fileName}, ${url}"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsdown src/index.ts --external vscode",
+    "dev": "nr build --watch --sourcemap",
+    "prepare": "nr update",
+    "update": "vscode-ext-gen --output src/generated/meta.ts",
+    "lint": "eslint .",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "vscode:prepublish": "nr build",
+    "release": "bumpp",
+    "ext:package": "vsce package --no-dependencies",
+    "ext:publish": "vsxpub --no-dependencies"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.19.0",
+    "@types/node": "^22.19.3",
+    "@types/vscode": "^1.107.0",
+    "@vscode/vsce": "^3.7.1",
+    "bumpp": "^10.3.2",
+    "eslint": "^9.39.2",
+    "ovsx": "^0.10.7",
+    "pnpm": "^10.26.1",
+    "reactive-vscode": "^0.2.22",
+    "taze": "^19.9.2",
+    "tsdown": "^0.9.9",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.1",
+    "vitest": "^3.2.4",
+    "vscode-ext-gen": "^1.5.1",
+    "vsxpub": "^0.1.2"
+  }
+}
